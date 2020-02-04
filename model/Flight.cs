@@ -10,11 +10,11 @@ namespace model
     {
         private String airDestination;
         private String airOrigin;
-        private double flightDuration;
-        private double flightDistance;
+        private String flightDuration;
+        private String flightDistance;
         private String tailNum;
 
-        public Flight(String airporB, String airportD, double flightDuration, double flightDistance, String tailID)
+        public Flight(String airporB, String airportD, String flightDuration, String flightDistance, String tailID)
         {
             AirDestination = airportD;
             AirOrigin = airporB;
@@ -46,7 +46,7 @@ namespace model
             }
         }
 
-        public double FlightDuration
+        public String FlightDuration
         {
             get
             {
@@ -57,7 +57,7 @@ namespace model
                this.flightDuration = value;
             }
         }
-        public double FlightDistance
+        public String FlightDistance
         {
             get
             {
