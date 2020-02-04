@@ -9,68 +9,77 @@ namespace model
 {
     public class FlightControl
     {
+
+        public List<Flight> flights
+        {
+            get
+            {
+                return flights;
+            }
+
+            set
+            {
+                this.flights = value;
+            }
+        }
      
-      
-
-
-        public FlightControl()
+        public FlightControl(String dataBasePath)
         {
-            
+            flights = ReadDataBase(dataBasePath);
         }
 
-        public List<Flight> SearchByOrigin(List<Flight> tempList, String destinacion)
+        public List<Flight> SearchByOrigin(String origin)
         {
-         
             List<Flight> nList = new List<Flight>();
-           for(int i = 0; i < tempList.Count; i++)
+           for(int i = 0; i < flights.Count; i++)
             {
-                if (tempList[i].AirOrigin.Equals(destinacion))
+                if (flights[i].AirOrigin.Equals(origin))
                 {
-                    nList.Add(tempList[i]);
+                    nList.Add(flights[i]);
                 }
             }
             return nList;
         }
 
 
-        public List<Flight> SearchByDestination(List<Flight> tempList, String destinacion)
+        public List<Flight> SearchByDestination(String destination)
         {
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < tempList.Count; i++)
+            for (int i = 0; i < flights.Count; i++)
             {
-                if (tempList[i].AirDestination.Equals(destinacion))
+                if (flights[i].AirDestination.Equals(destination))
                 {
-                    nList.Add(tempList[i]);
+                    nList.Add(flights[i]);
                 }
             }
             return nList;
 
         }
-        public List<Flight> SearchByDuration(List<Flight> tempList, double destinacion)
+        public List<Flight> SearchByDuration(double duration)
         {
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < tempList.Count; i++)
+            for (int i = 0; i < flights.Count; i++)
             {
-                if (tempList[i].FlightDuration != " ") {
-                    Console.WriteLine(tempList[i].FlightDuration);
-                    if (Convert.ToDouble(tempList[i].FlightDuration) == destinacion)
+                if (flights[i].FlightDuration != " ") {
+                    Console.WriteLine(flights[i].FlightDuration);
+                    if (Convert.ToDouble(flights[i].FlightDuration) == duration)
                     {
-                        nList.Add(tempList[i]);
+                        nList.Add(flights[i]);
                     }
                 }
             }
             return nList;
 
         }
-        public List<Flight> SearchByDistance(List<Flight> tempList, double destinacion)
+        public List<Flight> SearchByDistance(double duration)
         {
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < tempList.Count; i++)
+            for (int i = 0; i < flights.Count; i++)
             {
-                if (tempList[i].FlightDistance != " ") { 
-                    if (Convert.ToDouble(tempList[i].FlightDistance) == destinacion)
+                if (flights[i].FlightDistance != " ") { 
+                    if (Convert.ToDouble(flights[i].FlightDistance) == duration)
                     {
-                        nList.Add(tempList[i]);
+                        nList.Add(flights[i]);
                     }
             }
             }
@@ -78,15 +87,15 @@ namespace model
 
         }
 
-        public List<Flight> SearchByTailNum(List<Flight> tempList, String destinacion)
+        public List<Flight> SearchByTailNum(String tailNum)
         {
 
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < tempList.Count; i++)
+            for (int i = 0; i < flights.Count; i++)
             {
-                if (tempList[i].TailNum.Equals(destinacion))
+                if (flights[i].TailNum.Equals(tailNum))
                 {
-                    nList.Add(tempList[i]);
+                    nList.Add(flights[i]);
                 }
             }
             return nList;
@@ -101,11 +110,8 @@ namespace model
                 StreamReader sr = new StreamReader(filename);
                 String line = sr.ReadLine();
                 while ((line = sr.ReadLine()) != null)
-                {
-
-                    
+                {   
                    String[] temp = line.Split(',');
-                 
                     Flight tempFlight = new Flight(temp[15].Replace('"',' '), temp[25].Replace('"', ' '), temp[54], temp[56], temp[9]);
                     nList.Add(tempFlight);
                 }
@@ -116,19 +122,8 @@ namespace model
 
             }
             return nList;
-           
         }
 
-
-       
-
-
-
     }
-
-    
-
-   
-
 
 }

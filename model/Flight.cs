@@ -79,5 +79,15 @@ namespace model
                 this.tailNum = value;
             }
         }
+
+        public int CompareToAirDestination(Flight f)
+        {
+            return AirDestination.CompareTo(f.AirDestination);
+        }
+
+        public int CompareToAirOrigin(Flight f)
+        {
+            return AirOrigin.CompareTo(f.AirOrigin);
+        }
     }
 }
