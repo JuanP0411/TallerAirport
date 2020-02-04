@@ -1,0 +1,6 @@
+C:\Users\juanp\Documents\TallerAirport\model\bin\Debug\model.exe.config
+C:\Users\juanp\Documents\TallerAirport\model\bin\Debug\model.exe
+C:\Users\juanp\Documents\TallerAirport\model\bin\Debug\model.pdb
+C:\Users\juanp\Documents\TallerAirport\model\obj\Debug\model.csprojAssemblyReference.cache
+C:\Users\juanp\Documents\TallerAirport\model\obj\Debug\model.exe
+C:\Users\juanp\Documents\TallerAirport\model\obj\Debug\model.pdb
