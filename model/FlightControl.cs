@@ -9,77 +9,68 @@ namespace model
 {
     public class FlightControl
     {
-
+     
         public List<Flight> flights
         {
-            get
-            {
-                return flights;
-            }
-
-            set
-            {
-                this.flights = value;
-            }
-        }
-     
-        public FlightControl(String dataBasePath)
-        {
-            flights = ReadDataBase(dataBasePath);
+            get { return flights; }
         }
 
-        public List<Flight> SearchByOrigin(String origin)
+
+        public FlightControl() {}
+
+        public List<Flight> SearchByOrigin(List<Flight> tempList, String destinacion)
         {
+         
             List<Flight> nList = new List<Flight>();
-           for(int i = 0; i < flights.Count; i++)
+           for(int i = 0; i < tempList.Count; i++)
             {
-                if (flights[i].AirOrigin.Equals(origin))
+                if (tempList[i].AirOrigin.Equals(destinacion))
                 {
-                    nList.Add(flights[i]);
+                    nList.Add(tempList[i]);
                 }
             }
             return nList;
         }
 
 
-        public List<Flight> SearchByDestination(String destination)
+        public List<Flight> SearchByDestination(List<Flight> tempList, String destinacion)
         {
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < flights.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
-                if (flights[i].AirDestination.Equals(destination))
+                if (tempList[i].AirDestination.Equals(destinacion))
                 {
-                    nList.Add(flights[i]);
+                    nList.Add(tempList[i]);
                 }
             }
             return nList;
 
         }
-        public List<Flight> SearchByDuration(double duration)
+        public List<Flight> SearchByDuration(List<Flight> tempList, double destinacion)
         {
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < flights.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
-                if (flights[i].FlightDuration != " ") {
-                    Console.WriteLine(flights[i].FlightDuration);
-                    if (Convert.ToDouble(flights[i].FlightDuration) == duration)
+                if (tempList[i].FlightDuration != " ") {
+                    Console.WriteLine(tempList[i].FlightDuration);
+                    if (Convert.ToDouble(tempList[i].FlightDuration) == destinacion)
                     {
-                        nList.Add(flights[i]);
+                        nList.Add(tempList[i]);
                     }
                 }
             }
             return nList;
 
         }
-        public List<Flight> SearchByDistance(double duration)
+        public List<Flight> SearchByDistance(List<Flight> tempList, double destinacion)
         {
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < flights.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
-                if (flights[i].FlightDistance != " ") { 
-                    if (Convert.ToDouble(flights[i].FlightDistance) == duration)
+                if (tempList[i].FlightDistance != " ") { 
+                    if (Convert.ToDouble(tempList[i].FlightDistance) == destinacion)
                     {
-                        nList.Add(flights[i]);
+                        nList.Add(tempList[i]);
                     }
             }
             }
@@ -87,15 +78,15 @@ namespace model
 
         }
 
-        public List<Flight> SearchByTailNum(String tailNum)
+        public List<Flight> SearchByTailNum(List<Flight> tempList, String destinacion)
         {
 
             List<Flight> nList = new List<Flight>();
-            for (int i = 0; i < flights.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
-                if (flights[i].TailNum.Equals(tailNum))
+                if (tempList[i].TailNum.Equals(destinacion))
                 {
-                    nList.Add(flights[i]);
+                    nList.Add(tempList[i]);
                 }
             }
             return nList;
@@ -110,8 +101,11 @@ namespace model
                 StreamReader sr = new StreamReader(filename);
                 String line = sr.ReadLine();
                 while ((line = sr.ReadLine()) != null)
-                {   
+                {
+
+                    
                    String[] temp = line.Split(',');
+                 
                     Flight tempFlight = new Flight(temp[15].Replace('"',' '), temp[25].Replace('"', ' '), temp[54], temp[56], temp[9]);
                     nList.Add(tempFlight);
                 }
@@ -122,8 +116,46 @@ namespace model
 
             }
             return nList;
+           
         }
 
+
+       public List<string> popularDestinations()
+        {
+            //Count destinations. Used Dictionary data structure, in which the destinations' name are the keys and their frecuency is the value.
+            Dictionary<string, int> dests = new Dictionary<string, int>();
+            foreach(Flight f in flights)
+            {
+                if (dests.ContainsKey(f.AirDestination))
+                {
+                    dests[f.AirDestination]++;
+                }
+                else
+                {
+                    dests.Add(f.AirDestination, 1);
+                }
+            }
+
+            //Sort dicitonary by its values. Code snippet taken from https://stackoverflow.com/questions/289/how-do-you-sort-a-dictionary-by-value
+            var list = dests.ToList();
+            list.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+            //Return sorted key list.
+            List<string> ret = new List<string>();
+            foreach(KeyValuePair<string, int> k in list)
+            {
+                ret.Add(k.Key);
+            }
+            return ret;
+        }
+
+
+
     }
+
+    
+
+   
+
 
 }
