@@ -13,6 +13,7 @@ namespace model
         public List<Flight> flights
         {
             get { return flights; }
+            set { flights = value; }
         }
 
 
@@ -109,6 +110,7 @@ namespace model
                     Flight tempFlight = new Flight(temp[15].Replace('"',' '), temp[25].Replace('"', ' '), temp[54], temp[56], temp[9]);
                     nList.Add(tempFlight);
                 }
+                flights = nList;
 
             }
             catch (Exception e)
