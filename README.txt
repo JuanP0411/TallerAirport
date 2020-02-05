@@ -1,0 +1,1 @@
+Para poder usar el programa, debe tener la base de datos descargada pues este se la pedira.
